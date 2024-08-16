@@ -106,4 +106,3 @@ public class UserServiceTest {
         assertThrows(NullPointerException.class, () -> userService.updateUserProfile(nullUser, "new_username", "new_password", "new_email@example.com"), "Null user should throw NullPointerException");
     }
 }
-

@@ -31,6 +31,14 @@ public class BookServiceTest {
         user = mock(User.class);
         book1 = mock(Book.class);
         book2 = mock(Book.class);
+
+        // Setting up default behaviors for the mocked books
+        when(book1.getTitle()).thenReturn("Title1");
+        when(book2.getTitle()).thenReturn("Title2");
+        when(book1.getAuthor()).thenReturn("Author1");
+        when(book2.getAuthor()).thenReturn("Author2");
+        when(book1.getGenre()).thenReturn("Genre1");
+        when(book2.getGenre()).thenReturn("Genre2");
     }
 
     @AfterEach
@@ -40,13 +48,11 @@ public class BookServiceTest {
 
     @Test
     public void testAddBookPositive() {
-        when(book1.getTitle()).thenReturn("Title1");
         assertTrue(bookService.addBook(book1), "Book should be added successfully");
     }
 
     @Test
     public void testAddBookNegative() {
-        when(book1.getTitle()).thenReturn("Title1");
         bookService.addBook(book1);
         assertFalse(bookService.addBook(book1), "Adding the same book again should fail");
     }
@@ -76,7 +82,6 @@ public class BookServiceTest {
 
     @Test
     public void testSearchBookPositive() {
-        when(book1.getTitle()).thenReturn("Title1");
         bookService.addBook(book1);
         List<Book> foundBooks = bookService.searchBook("Title1");
         assertEquals(1, foundBooks.size(), "Search should return one book");
@@ -91,12 +96,10 @@ public class BookServiceTest {
 
     @Test
     public void testSearchBookEdgeCase() {
-        when(book1.getGenre()).thenReturn("Programming");
-        when(book2.getGenre()).thenReturn("Programming");
         bookService.addBook(book1);
         bookService.addBook(book2);
-        List<Book> foundBooks = bookService.searchBook("Programming");
-        assertEquals(2, foundBooks.size(), "Search should return all books with the 'Programming' genre");
+        List<Book> foundBooks = bookService.searchBook("Genre");
+        assertEquals(2, foundBooks.size(), "Search should return all books with the 'Genre' genre");
     }
 
     @Test
@@ -135,4 +138,3 @@ public class BookServiceTest {
         assertThrows(NullPointerException.class, () -> bookService.addBookReview(user, nullBook, "Review"), "Null book should throw NullPointerException");
     }
 }
-

@@ -74,4 +74,3 @@ public class UserTest {
         assertNull(user.getPurchasedBooks(), "Purchased books list should be null if set to null");
     }
 }
-

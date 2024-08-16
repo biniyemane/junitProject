@@ -79,4 +79,3 @@ public class BookTest {
         assertNull(book.getReviews(), "Reviews list should be null if set to null");
     }
 }
-
